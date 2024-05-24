@@ -25,11 +25,11 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            IPrinter printer;
-            printer = new ConsolePrinter();
-            printer.PrintRecipe(recipe);
-            printer = new FilePrinter();
-            printer.PrintRecipe(recipe);
+            ConsolePrinterCreator consolePrinter1 = new ConsolePrinterCreator();
+            consolePrinter1.consolePrinter.PrintRecipe(recipe);
+        
+            FilePrinterCreator filePrinter1 = new FilePrinterCreator();
+            filePrinter1.filePrinter.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
@@ -44,12 +44,14 @@ namespace Full_GRASP_And_SOLID
 
         private static void AddProductToCatalog(string description, double unitCost)
         {
-            productCatalog.Add(new Product(description, unitCost));
+            ProductCreator product1 = new ProductCreator(description,unitCost);
+            productCatalog.Add(product1.product);
         }
 
         private static void AddEquipmentToCatalog(string description, double hourlyCost)
         {
-            equipmentCatalog.Add(new Equipment(description, hourlyCost));
+            EquipmentCreator equipment1 = new EquipmentCreator(description,hourlyCost);
+            equipmentCatalog.Add(equipment1.equipment);
         }
 
         private static Product ProductAt(int index)
